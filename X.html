@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota 2 Персонажи и Предметы</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #1e1e1e; color: white; }
+        .menu { margin: 20px; }
+        .button { padding: 10px 20px; font-size: 18px; cursor: pointer; border: none; background-color: #ff6600; color: white; border-radius: 5px; transition: background-color 0.3s ease; }
+        .button:hover { background-color: #cc5200; }
+        .content, .abilities, .items-section { display: none; opacity: 0; transform: scale(0.95); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .show { display: block; opacity: 1; transform: scale(1); }
+        .character-list, .items-list { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+        .character, .item { padding: 10px; background-color: #444; border-radius: 5px; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; }
+        .character:hover, .item:hover { background-color: #555; transform: scale(1.05); }
+        .ability, .item-description { margin-top: 15px; padding: 10px; border-radius: 5px; background-color: #333; }
+        .ability h3, .item h3 { color: #ff6600; }
+        .effect { margin-top: 5px; color: #ffcc00; font-style: italic; }
+    </style>
+</head>
+<body>
+    <h1>Выберите категорию</h1>
+    <div class="menu">
+        <button class="button" onclick="showCharacters()">Персонажи</button>
+        <button class="button" onclick="showItems()">Предметы</button>  
+        <button class="button" onclick="showContacts()">Контакты</button>
+        <div id="contacts" class="content">
+    <h2>Контакты</h2>
+    <p>Если вы хотите связаться с разработчиком, то вот телеграм: <strong>@xqzerc</strong> :D</p>
+    </div>
+    <button class="button" onclick="showGuide()">Гайд по установке</button>
+    <div id="guide" class="content">
+    <h2>Гайд по установке</h2>
+    <p><a href="https://www.youtube.com/watch?v=v76kA3esLP8" target="_blank">Для чайников</a></p>
+</div>
+<button class="button" onclick="showWiki()">Википедия</button>
+<div id="wiki" class="content">
+    <h2>Википедия</h2>
+    <p><a href="https://dota2.fandom.com/wiki/Dota_2_Wiki" target="_blank">Перейти на Dota 2 Wiki 📖</a></p>
+</div>
+<button class="button" onclick="showDotaPlus()">Бесплатная Dota Plus</button>
+
+    
+    <!-- Раздел персонажей -->
+    <div id="characters" class="content">
+        <h2>Выберите персонажа</h2>
+        <div class="character-list">
+            <div class="character" onclick="showAbilities('shadowFiend')">Shadow Fiend</div>
+            <div class="character" onclick="showAbilities('arcWarden')">Arc Warden</div>
+            <div class="character" onclick="showAbilities('spectre')">Spectre</div>
+            <div class="character" onclick="showAbilities('bloodseeker')">Bloodseeker</div>
+        </div>
+    </div>
+    <div id="abilities" class="abilities">
+        <h2 id="characterName"></h2>
+        <div id="abilityList"></div>
+    </div> 
+
+    <!-- Раздел предметов -->
+    <div id="items" class="items-section">
+        <h2>Выберите предмет</h2>
+        <div class="items-list">
+            <div class="item" onclick="showItemDetails('observerWard')">Observer Ward</div>
+            <div class="item" onclick="showItemDetails('sentryWard')">Sentry Ward</div>
+            <div class="item" onclick="showItemDetails('clarity')">Clarity</div>
+            <div class="item" onclick="showItemDetails('smoke')">Smoke of Deceit</div>
+            <div class="item" onclick="showItemDetails('mango')">Enchanted Mango</div>
+            <div class="item" onclick="showItemDetails('tango')">Tango</div>
+            <div class="item" onclick="showItemDetails('salve')">Healing Salve</div>
+            <div class="item" onclick="showItemDetails('magicStick')">Magic Stick</div>
+            <div class="item" onclick="showItemDetails('magicWand')">Magic Wand</div>
+            <div class="item" onclick="showItemDetails('blinkDagger')">Blink Dagger</div>
+            <div class="item" onclick="showItemDetails('powerTreads')">Power Treads</div>
+            <div class="item" onclick="showItemDetails('phaseBoots')">Phase Boots</div>
+            <div class="item" onclick="showItemDetails('moonShard')">Moon Shard</div>
+            <div class="item" onclick="showItemDetails('dagon')">Dagon</div>
+            <div class="item" onclick="showItemDetails('bladeMail')">Blade Mail</div>
+            <div class="item" onclick="showItemDetails('bkb')">Black King Bar</div>
+            <div class="item" onclick="showItemDetails('armlet')">Armlet of Mordiggian</div>
+            <div class="item" onclick="showItemDetails('shadowBlade')">Shadow Blade</div>
+            <div class="item" onclick="showItemDetails('radiance')">Radiance</div>
+            <div class="item" onclick="showItemDetails('daedalus')">Daedalus</div>
+            <div class="item" onclick="showItemDetails('butterfly')">Butterfly</div>
+            <div class="item" onclick="showItemDetails('rapier')">Divine Rapier</div>
+            <div class="item" onclick="showItemDetails('aegis')">Aegis of the Immortal</div>
+        </div>
+        <div id="itemDetails" class="item-description"></div>
+    </div>
+
+    <script>
+     function showCharacters() {
+        document.getElementById("characters").classList.add("show");
+        document.getElementById("items").classList.remove("show");
+    }
+
+        function showWiki() {
+        document.getElementById("wiki").classList.add("show");
+        document.getElementById("characters").classList.remove("show");
+        document.getElementById("items").classList.remove("show");
+        document.getElementById("contacts").classList.remove("show");
+        document.getElementById("guide").classList.remove("show");
+    }
+
+        function showContacts() {
+        document.getElementById("contacts").classList.add("show");
+        document.getElementById("characters").classList.remove("show");
+        document.getElementById("items").classList.remove("show");
+    }
+
+        function showGuide() {
+        document.getElementById("guide").classList.add("show");
+        document.getElementById("characters").classList.remove("show");
+        document.getElementById("items").classList.remove("show");
+        document.getElementById("contacts").classList.remove("show");
+    }
+
+            function showAbilities(character) {
+        let abilitiesSection = document.getElementById("abilities");
+        abilitiesSection.classList.add("show");
+
+        const abilityData = {
+            shadowFiend: {
+                name: "Shadow Fiend",
+                list: [
+                    { name: "Shadowraze", description: "Наносит магический урон в области перед героем.", cooldown: "Перезарядка: 6 сек.", duration: "Длительность: мгновенно", effect: "Эффект: Усиление урона." },
+                    { name: "Necromastery", description: "Усиливает урон за каждую поглощённую душу.", cooldown: "Перезарядка: пассивное", duration: "Длительность: постоянно", effect: "Эффект: Увеличение урона." },
+                    { name: "Presence of the Dark Lord", description: "Уменьшает броню врагов поблизости.", cooldown: "Перезарядка: пассивное", duration: "Длительность: постоянно", effect: "Эффект: Снижение брони." },
+                    { name: "Requiem of Souls", description: "Выпускает волны энергии, пугая и нанося урон врагам.", cooldown: "Перезарядка: 120 сек.", duration: "Длительность: 2 сек.", effect: "Эффект: Страх." }
+                ]
+            },
+            arcWarden: {
+                name: "Arc Warden",
+                list: [
+                    { name: "Flux", description: "Замедляет и наносит урон одиночной цели.", cooldown: "Перезарядка: 18 сек.", duration: "Длительность: 6 сек.", effect: "Эффект: Замедление." },
+                    { name: "Magnetic Field", description: "Создаёт защитное поле, увеличивающее уклонение союзников.", cooldown: "Перезарядка: 20 сек.", duration: "Длительность: 4.5 сек.", effect: "Эффект: Уклонение." },
+                    { name: "Spark Wraith", description: "Призрачная ловушка, атакующая врагов.", cooldown: "Перезарядка: 4 сек.", duration: "Длительность: 50 сек. (заряд)", effect: "Эффект: Магический урон." },
+                    { name: "Tempest Double", description: "Создаёт копию героя, способную использовать предметы и способности.", cooldown: "Перезарядка: 60 сек.", duration: "Длительность: 26 сек.", effect: "Эффект: Двойник." }
+                ]
+            },
+            spectre: {
+                name: "Spectre",
+                list: [
+                    { name: "Spectral Dagger", description: "Позволяет проходить сквозь препятствия и замедляет врагов.", cooldown: "Перезарядка: 16 сек.", duration: "Длительность: 4 сек.", effect: "Эффект: Замедление." },
+                    { name: "Desolate", description: "Наносит дополнительный урон одиночным целям.", cooldown: "Перезарядка: пассивное", duration: "Длительность: постоянно", effect: "Эффект: Дополнительный урон." },
+                    { name: "Dispersion", description: "Отражает часть полученного урона обратно врагам.", cooldown: "Перезарядка: пассивное", duration: "Длительность: постоянно", effect: "Эффект: Отражение урона." },
+                    { name: "Haunt", description: "Создаёт иллюзии рядом с врагами, позволяя мгновенно перемещаться к ним.", cooldown: "Перезарядка: 180 сек.", duration: "Длительность: 6 сек.", effect: "Эффект: Иллюзии." }
+                ]
+            },
+            bloodseeker: {
+                name: "Bloodseeker",
+                list: [
+                    { name: "Bloodrage", description: "Усиливает урон, но увеличивает получаемый урон.", cooldown: "Перезарядка: 8 сек.", duration: "Длительность: 6 сек.", effect: "Эффект: Усиление урона." },
+                    { name: "Blood Rite", description: "Создаёт зону, накладывающую немоту и наносящую урон.", cooldown: "Перезарядка: 12 сек.", duration: "Длительность: 3 сек.", effect: "Эффект: Безмолвие." },
+                    { name: "Thirst", description: "Увеличивает скорость передвижения при низком здоровье врагов.", cooldown: "Перезарядка: пассивное", duration: "Длительность: постоянно", effect: "Эффект: Ускорение." },
+                    { name: "Rupture", description: "Наносит урон врагу при его передвижении.", cooldown: "Перезарядка: 70 сек.", duration: "Длительность: 12 сек.", effect: "Эффект: Кровотечение." }
+                ]
+            }
+        };
+
+        document.getElementById("characterName").innerText = abilityData[character].name;
+        document.getElementById("abilityList").innerHTML = abilityData[character].list.map(ability => `
+            <div class="ability">
+                <h3>${ability.name}</h3>
+                <p>${ability.description}</p>
+                <p><strong>${ability.cooldown}</strong></p>
+                <p><strong>${ability.duration}</strong></p>
+                <p class="effect">${ability.effect}</p>
+            </div>
+        `).join("");
+    }
+        
+     function showItems() {
+        document.getElementById("items").classList.add("show");
+        document.getElementById("characters").classList.remove("show");
+    }
+
+        function showItemDetails(item) {
+            const itemData = {
+                observerWard: "Даёт обзор на 6 минут, помогает контролировать карту.",
+                sentryWard: "Обнаруживает невидимые юниты и варды.",
+                clarity: "Восстанавливает ману со временем.",
+                smoke: "Делает союзников невидимыми и увеличивает скорость передвижения.",
+                mango: "Мгновенно восстанавливает ману.",
+                tango: "Позволяет съесть дерево для восстановления здоровья.",
+                salve: "Восстанавливает большое количество здоровья.",
+                magicStick: "Копит заряды при использовании способностей врагами, мгновенно восстанавливает здоровье и ману.",
+                magicWand: "Улучшенная версия Magic Stick с большим количеством зарядов.",
+                blinkDagger: "Позволяет мгновенно перемещаться на короткое расстояние.",
+                powerTreads: "Даёт скорость атаки и возможность переключать атрибуты.",
+                phaseBoots: "Увеличивает скорость передвижения и урон.",
+                moonShard: "Увеличивает скорость атаки.",
+                dagon: "Наносит мощный магический урон.",
+                bladeMail: "Отражает полученный урон обратно врагам.",
+                bkb: "Даёт иммунитет к магии.",
+                armlet: "Усиливает урон и броню, но постепенно снижает здоровье.",
+                shadowBlade: "Даёт невидимость и бонус к урону при атаке.",
+                radiance: "Наносит урон врагам вокруг и снижает их точность.",
+                daedalus: "Увеличивает шанс критического удара.",
+                butterfly: "Даёт уклонение, скорость атаки и урон.",
+                rapier: "Даёт огромный урон, но выпадает при смерти.",
+                aegis: "Позволяет воскреснуть после смерти."
+            };
+
+            document.getElementById("itemDetails").innerText = itemData[item];
+        }
+    </script>
+</body>
+</html>
